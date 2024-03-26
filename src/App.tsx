@@ -4,8 +4,6 @@ import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
 import "./App.css";
 
-const CATS_FACTS_API_ENDPOINT = "https://catfact.ninja/fact";
-const CATS_IMG_API_ENDPOINT = "https://cataas.com/cat/says/";
 const CATS_IMG_API_FILTERS = {
   width: 300,
   height: 300,
@@ -25,7 +23,7 @@ export const App = () => {
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const getFact = () => {
-    fetch(CATS_FACTS_API_ENDPOINT)
+    fetch(import.meta.env.VITE_CATS_FACTS_API_ENDPOINT)
       .then((res) => res.json())
       .then((result) => {
         setFact(result.fact);
@@ -49,7 +47,11 @@ export const App = () => {
 
       const filters = transformFiltersObjectToString(CATS_IMG_API_FILTERS);
 
-      setImageUrl(`${CATS_IMG_API_ENDPOINT}${splittedFact}?${filters}`);
+      setImageUrl(
+        `${
+          import.meta.env.VITE_CATS_IMG_API_ENDPOINT
+        }${splittedFact}?${filters}`
+      );
     }
   }, [fact]);
 
