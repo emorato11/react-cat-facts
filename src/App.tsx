@@ -24,7 +24,7 @@ export const App = () => {
       </header>
       {fact && imageUrl && (
         <section className="container">
-          <span>{fact}</span>
+          <p>{fact}</p>
 
           <img
             src={imageUrl}
