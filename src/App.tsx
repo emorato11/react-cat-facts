@@ -1,30 +1,16 @@
-import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
-import { getRandomFact } from "@/services/cats";
 import { useCatImage } from "@/hooks/useCatImage";
+import { useCatFact } from "@/hooks/useCatFact";
 
 import "./App.css";
 
 export const App = () => {
-  const [fact, setFact] = useState<string | null>();
+  const { fact, refreshFact } = useCatFact();
   const { imageUrl } = useCatImage({ fact });
 
-  const getFact = async () => {
-    const newFact = await getRandomFact();
-    setFact(newFact);
-  };
-
-  const getAnotherFact = () => {
-    setFact(null);
-
-    getFact();
-  };
-
-  useEffect(() => {
-    getFact();
-  }, []);
+  const getAnotherFact = () => refreshFact();
 
   return (
     <main>
