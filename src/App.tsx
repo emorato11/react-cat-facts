@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateRight } from "@fortawesome/free-solid-svg-icons";
 
+import { getRandomFact } from "@/services/cats";
 import { useCatImage } from "@/hooks/useCatImage";
 
 import "./App.css";
@@ -10,12 +11,9 @@ export const App = () => {
   const [fact, setFact] = useState<string | null>();
   const { imageUrl } = useCatImage({ fact });
 
-  const getFact = () => {
-    fetch(import.meta.env.VITE_CATS_FACTS_API_ENDPOINT)
-      .then((res) => res.json())
-      .then((result) => {
-        setFact(result.fact);
-      });
+  const getFact = async () => {
+    const newFact = await getRandomFact();
+    setFact(newFact);
   };
 
   const getAnotherFact = () => {
